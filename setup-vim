@@ -52,7 +52,7 @@ EOF
 
 echo "set number" >> ~/.vimrc
 
-echo <<EOF >> ~/.vimrc
+cat <<EOF >> ~/.vimrc
 function FormatBuffer()
   if &modified && !empty(findfile('.clang-format', expand('%:p:h') . ';'))
     let cursor_pos = getpos('.')
