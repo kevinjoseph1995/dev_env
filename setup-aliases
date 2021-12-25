@@ -2,3 +2,4 @@
 
 echo "source ~/.bash_aliases" >> ~/.zshrc
 echo "alias clion='~/clion/bin/clion.sh'" >> ~/.zshrc
+echo "alias dev='~/Projects/docker_dev/opengl/run.sh'" >> ~/.zshrc
