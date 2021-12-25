@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+echo "source ~/.bash_aliases" >> ~/.zshrc
+echo "alias clion='~/clion/bin/clion.sh'" >> ~/.zshrc
