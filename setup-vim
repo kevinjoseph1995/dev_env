@@ -4,7 +4,7 @@ rm -f -- ~/.vimrc
 
 sudo add-apt-repository ppa:jonathonf/vim
 sudo apt update
-sudo apt install vim
+sudo apt install vim-gtk3
 
 VUNDLE=~/.vim/bundle
 if [ -d "$VUNDLE" ]; then rm -Rf $VUNDLE; fi
