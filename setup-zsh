@@ -8,4 +8,7 @@ OMZ=~/.oh-my-zsh
 
 if [ -d "$OMZ" ]; then rm -Rf $OMZ; fi
 
-ZSH= sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+echo "set-option -g default-shell /usr/bin/zsh" > ~/.tmux.conf
+
+ZSH= sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"i
+
