@@ -10,5 +10,4 @@ if [ -d "$OMZ" ]; then rm -Rf $OMZ; fi
 
 echo "set-option -g default-shell /usr/bin/zsh" > ~/.tmux.conf
 
-ZSH= sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"i
-
+sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
