@@ -1,9 +1,7 @@
-
 #!/usr/bin/env bash
 
 FZF=~/.fzf
 
 if [ -d "$FZF" ]; then rm -Rf $FZF; fi
-
 
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install

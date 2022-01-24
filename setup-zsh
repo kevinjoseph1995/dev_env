@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 
 sudo apt-get update
-sudo apt-get install zsh
+sudo apt-get install -y zsh
 
+# Cleanup any old installations
+rm -f ~/.zshrc
 
 OMZ=~/.oh-my-zsh
-
 if [ -d "$OMZ" ]; then rm -Rf $OMZ; fi
-
-echo "set-option -g default-shell /usr/bin/zsh" > ~/.tmux.conf
 
 sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
