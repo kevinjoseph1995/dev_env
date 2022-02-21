@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -e
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+${SCRIPT_DIR}/build-base-image
+${SCRIPT_DIR}/build
+
+CONTAINER_NAME="dev-${USER}"
+OLD="$(docker ps --all --quiet --filter=name="$CONTAINER_NAME")"
+if [ -n "$OLD" ]; then
+  docker stop $OLD && docker rm $OLD
+fi
+
+${SCRIPT_DIR}/create
+${SCRIPT_DIR}/run

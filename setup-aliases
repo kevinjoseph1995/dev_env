@@ -1,5 +1,38 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 
-echo "source ~/.bash_aliases" >> ~/.zshrc
-echo "alias clion='~/clion/bin/clion.sh'" >> ~/.zshrc
-echo "alias dev='~/Projects/docker_dev/opengl/run.sh'" >> ~/.zshrc
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+cat <<EOF > ~/.aliases
+alias clion='~/clion/bin/clion.sh'
+
+alias gl='${SCRIPT_DIR}/opengl/run'
+alias gl-setup='${SCRIPT_DIR}/opengl/gl-setup'
+
+alias serenity='${SCRIPT_DIR}/serenity/run'
+alias serenity-setup='${SCRIPT_DIR}/serenity/serenity-setup'
+
+alias gcc-dev='${SCRIPT_DIR}/gcc/run'
+alias gcc-dev-setup='${SCRIPT_DIR}/gcc/gcc-setup'
+
+alias clang-dev='${SCRIPT_DIR}/clang/run'
+alias clang-dev-setup='${SCRIPT_DIR}/clang/clang-setup'
+
+alias gs='git status'
+EOF
+
+
+if grep -Fxq "source ~/.aliases" ~/.bashrc
+then
+    echo "Aliases already setup in .bashrc"
+else
+    echo "Installing aliases in .bashrc"
+    echo "source ~/.aliases" >> ~/.bashrc
+fi
+
+if grep -Fxq "source ~/.aliases" ~/.zshrc
+then
+    echo "Aliases already setup in .zshrc"
+else
+    echo "Installing aliases in .zshrc"
+    echo "source ~/.aliases" >> ~/.zshrc
+fi
