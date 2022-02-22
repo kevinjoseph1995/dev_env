@@ -2,11 +2,11 @@ FROM nvcr.io/nvidia/cudagl:11.4.1-base-ubuntu20.04
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES compute,video,utility,graphics,compat32,display
 
-RUN apt update
+RUN apt-get update
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt install -y \
+RUN apt-get install -y \
         build-essential \
         cmake \
 	    curl \
@@ -23,7 +23,8 @@ RUN apt install -y \
         unzip \
         texinfo \
         vim \
-        zsh
+        zsh \
+        git
 
 
 RUN apt install -y software-properties-common && add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
