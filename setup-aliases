@@ -17,8 +17,8 @@ alias gcc-dev-setup='${SCRIPT_DIR}/gcc/gcc-setup'
 alias clang-dev='${SCRIPT_DIR}/clang/run'
 alias clang-dev-setup='${SCRIPT_DIR}/clang/clang-setup'
 
-alias rust-dev='${SCRIPT_DIR}/rust/run'
-alias rust-dev-setup='${SCRIPT_DIR}/rust/rust-setup'
+alias rust-dev='${SCRIPT_DIR}/rust_dev/run'
+alias rust-dev-setup='${SCRIPT_DIR}/rust_env/rust-setup'
 
 alias gs='git status'
 EOF
