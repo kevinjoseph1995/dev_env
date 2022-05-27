@@ -46,3 +46,10 @@ RUN ln -s /usr/bin/ld.lld-14 /usr/bin/ld
 # libstdc++-11
 RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test
 RUN apt-get update  && apt-get install -y libstdc++-11-dev
+
+# Install Bazel
+RUN apt install -y apt-transport-https gnupg
+RUN curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor >bazel-archive-keyring.gpg
+RUN mv bazel-archive-keyring.gpg /usr/share/keyrings
+RUN echo "deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" |  tee /etc/apt/sources.list.d/bazel.list
+RUN apt update && apt install bazel

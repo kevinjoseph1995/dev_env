@@ -41,3 +41,11 @@ RUN apt-get update  && apt-get install -y gcc-11 g++-11
 
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 20
 RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 20
+
+# Install Bazel
+RUN apt update
+RUN apt install -y apt-transport-https gnupg
+RUN curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor >bazel-archive-keyring.gpg
+RUN mv bazel-archive-keyring.gpg /usr/share/keyrings
+RUN echo "deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" |  tee /etc/apt/sources.list.d/bazel.list
+RUN apt update && apt install bazel
