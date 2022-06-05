@@ -14,7 +14,7 @@ cp ${SCRIPT_DIR}/vimrc  ~/.vimrc
 vim +PluginInstall +qall
 vim +PlugInstall +qall
 
-python3 ~/.vim/bundle/YouCompleteMe/install.py --clang-completer --rust-completer
+python3 ~/.vim/bundle/YouCompleteMe/install.py --clangd-completer --rust-completer
 
 vim +PluginInstall +qall
 
