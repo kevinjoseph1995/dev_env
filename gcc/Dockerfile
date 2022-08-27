@@ -1,11 +1,13 @@
-FROM nvcr.io/nvidia/cudagl:11.4.1-base-ubuntu20.04
-ENV NVIDIA_VISIBLE_DEVICES all
-ENV NVIDIA_DRIVER_CAPABILITIES compute,video,utility,graphics,compat32,display
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
+	&& localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+ENV LANG en_US.utf8
 
 COPY bash.bashrc /etc/bash.bashrc
 RUN  chmod a+rwx /etc/bash.bashrc
-
-ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get -y update
 
@@ -20,18 +22,17 @@ RUN apt-get -y install gdb
 RUN apt-get install -y build-essential
 RUN apt-get install -y ninja-build
 RUN apt install -y clang-format
-RUN apt-get install -y zsh
+RUN apt-get install -y fish
 RUN apt-get install -y vim
 RUN apt-get install -y software-properties-common
 RUN apt-get install -y lsb-release
 RUN apt-get -y update && apt-get install -y libssl-dev
 
-# gcc-11
-RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test
-RUN apt-get update  && apt-get install -y gcc-11 g++-11
+# gcc-12
+RUN apt-get update  && apt-get install -y gcc-12 g++-12
 
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 20
-RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 20
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 20
+RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 20
 
 # CMake
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.24.0/cmake-3.24.0-linux-x86_64.sh && \
@@ -40,7 +41,6 @@ RUN wget https://github.com/Kitware/CMake/releases/download/v3.24.0/cmake-3.24.0
 
 # Mold
 RUN cd / && git clone https://github.com/rui314/mold.git && cd mold && git checkout v1.4.0 && make -j$(nproc) CXX=g++ && make install && cd / && rm -rf /mold
-
 
 # ccache
 RUN wget --directory-prefix=/tmp https://github.com/ccache/ccache/releases/download/v4.3/ccache-4.3.tar.gz
