@@ -23,10 +23,14 @@ RUN apt-get install -y build-essential
 RUN apt-get install -y ninja-build
 RUN apt install -y clang-format
 RUN apt-get install -y fish
-RUN apt-get install -y vim
 RUN apt-get install -y software-properties-common
 RUN apt-get install -y lsb-release
 RUN apt-get -y update && apt-get install -y libssl-dev
+
+# Neovim
+RUN add-apt-repository ppa:neovim-ppa/stable
+RUN apt-get update
+RUN apt-get install -y neovim
 
 # gcc-12
 RUN apt-get update  && apt-get install -y gcc-12 g++-12

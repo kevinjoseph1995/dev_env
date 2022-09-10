@@ -21,9 +21,13 @@ RUN apt-get install -y build-essential
 RUN apt-get install -y ninja-build
 RUN apt install -y clang-format
 RUN apt-get install -y zsh
-RUN apt-get install -y vim
 RUN apt-get install -y software-properties-common
 RUN apt-get install -y lsb-release
+
+# Neovim
+RUN add-apt-repository ppa:neovim-ppa/stable
+RUN apt-get update
+RUN apt-get install neovim
 
 # CMake
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.22.2/cmake-3.22.2-linux-x86_64.sh && \
