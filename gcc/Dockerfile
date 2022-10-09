@@ -26,6 +26,7 @@ RUN apt-get install -y fish
 RUN apt-get install -y software-properties-common
 RUN apt-get install -y lsb-release
 RUN apt-get -y update && apt-get install -y libssl-dev
+RUN apt-get install -y bash-completion
 
 # Neovim
 RUN add-apt-repository ppa:neovim-ppa/stable
@@ -58,3 +59,4 @@ RUN curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor >bazel-
 RUN mv bazel-archive-keyring.gpg /usr/share/keyrings
 RUN echo "deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" |  tee /etc/apt/sources.list.d/bazel.list
 RUN apt update && apt install bazel
+

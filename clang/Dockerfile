@@ -28,6 +28,8 @@ RUN apt-get install -y fish
 RUN apt-get install -y software-properties-common
 RUN apt-get install -y lsb-release
 RUN apt-get -y update && apt-get install -y libssl-dev
+RUN apt-get install -y bash-completion
+RUN apt-get install -y bat
 
 # Neovim
 RUN add-apt-repository ppa:neovim-ppa/stable
