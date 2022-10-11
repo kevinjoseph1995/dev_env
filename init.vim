@@ -23,7 +23,6 @@ set splitright            " Splits go to the right by default
 set title                 " Set the title for gvim
 set encoding=utf8
 
-
 " Format on save
 function! Formatonsave()
   let l:formatdiff = 1
@@ -43,3 +42,4 @@ nmap <C-p> :Files <CR>
 nmap <C-h> :tabprevious <CR>
 nmap <C-l> :tabnext  <CR>
 nmap <C-n> :tabnew <CR>
+nmap <C-d> :YcmCompleter GoTo <CR>
