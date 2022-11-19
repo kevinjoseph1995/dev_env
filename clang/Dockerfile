@@ -37,31 +37,25 @@ RUN apt-get update
 RUN apt-get install -y neovim
 
 # CMake
-RUN wget https://github.com/Kitware/CMake/releases/download/v3.22.2/cmake-3.22.2-linux-x86_64.sh && \
-    bash ./cmake-3.22.2-linux-x86_64.sh --skip-license --include-subdir --prefix=/ && rm ./cmake-3.22.2-linux-x86_64.sh && \
-    cd cmake-3.22.2-linux-x86_64 && cp -r share/* /usr/share && cp -r bin/* /usr/bin && cd .. && rm -r cmake-3.22.2-linux-x86_64
+RUN wget https://github.com/Kitware/CMake/releases/download/v3.23.4/cmake-3.23.4-linux-x86_64.sh && \
+    bash ./cmake-3.23.4-linux-x86_64.sh --skip-license --include-subdir --prefix=/ && rm ./cmake-3.23.4-linux-x86_64.sh && \
+    cd cmake-3.23.4-linux-x86_64 && cp -r share/* /usr/share && cp -r bin/* /usr/bin && cd .. && rm -r cmake-3.23.4-linux-x86_64
+
+
+# Mold
+RUN cd / && git clone https://github.com/rui314/mold.git && cd mold && git checkout v1.6.0 && make -j$(nproc) CXX=g++ && make install && cd / && rm -rf /mold
 
 # ccache
-RUN wget --directory-prefix=/tmp https://github.com/ccache/ccache/releases/download/v4.3/ccache-4.3.tar.gz
-RUN cd /tmp && tar -xvzf ccache-4.3.tar.gz && cd ccache-4.3/ && mkdir build
-RUN cd /tmp/ccache-4.3/build && cmake -DZSTD_FROM_INTERNET=ON -DCMAKE_INSTALL_PREFIX=/usr .. && make -j && make install
+RUN wget --directory-prefix=/tmp https://github.com/ccache/ccache/releases/download/v4.7.2/ccache-4.7.2.tar.gz
+RUN cd /tmp && tar -xvzf ccache-4.7.2.tar.gz && cd ccache-4.7.2/ && mkdir build
+RUN cd /tmp/ccache-4.7.2/build && cmake -DZSTD_FROM_INTERNET=ON -DCMAKE_INSTALL_PREFIX=/usr .. && make -j && make install
 
 # GCC
-RUN apt-get update  && apt-get install -y gcc-12 g++-12 libstdc++-11-dev
+RUN apt-get update  && apt-get install -y gcc-12 g++-12 libstdc++-12-dev
 
 # LLVM/Clang
 RUN bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
 # Set Clang as the default compiler, cmake can take it from here
 RUN update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-15 30
 RUN update-alternatives --install /usr/bin/cc cc /usr/bin/clang-15 30
-
-# Mold
-RUN cd / && git clone https://github.com/rui314/mold.git && cd mold && git checkout v1.4.0 && make -j$(nproc) CXX=g++ && make install && cd / && rm -rf /mold
-
-
-# Install Bazel
-RUN apt install -y apt-transport-https gnupg
-RUN curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor >bazel-archive-keyring.gpg
-RUN mv bazel-archive-keyring.gpg /usr/share/keyrings
-RUN echo "deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" |  tee /etc/apt/sources.list.d/bazel.list
-RUN apt update && apt install bazel
+RUN ln -s /usr/bin/clangd-15 /usr/bin/clangd
