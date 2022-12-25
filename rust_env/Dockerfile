@@ -28,12 +28,12 @@ RUN apt-get install -y lsb-release
 RUN apt-get -y update && apt-get install -y libssl-dev
 RUN apt-get install -y bash-completion
 RUN apt-get -y install binutils-dev
+RUN apt-get -y install exa 
 
 # Neovim
 RUN add-apt-repository ppa:neovim-ppa/stable
 RUN apt-get update
 RUN apt-get install -y neovim
-
 
 # rust toolchain
 RUN curl --proto '=https' --tlsv1.3 -sSf https://sh.rustup.rs | sh -s -- -y
