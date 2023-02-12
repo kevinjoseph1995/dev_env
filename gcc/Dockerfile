@@ -41,12 +41,13 @@ RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 20
 RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 20
 
 # CMake
-RUN wget https://github.com/Kitware/CMake/releases/download/v3.23.4/cmake-3.23.4-linux-x86_64.sh && \
-    bash ./cmake-3.23.4-linux-x86_64.sh --skip-license --include-subdir --prefix=/ && rm ./cmake-3.23.4-linux-x86_64.sh && \
-    cd cmake-3.23.4-linux-x86_64 && cp -r share/* /usr/share && cp -r bin/* /usr/bin && cd .. && rm -r cmake-3.23.4-linux-x86_64
+RUN wget https://github.com/Kitware/CMake/releases/download/v3.25.2/cmake-3.25.2-linux-x86_64.sh && \
+    bash ./cmake-3.25.2-linux-x86_64.sh --skip-license --include-subdir --prefix=/ && rm ./cmake-3.25.2-linux-x86_64.sh && \
+    cd cmake-3.25.2-linux-x86_64 && cp -r share/* /usr/share && cp -r bin/* /usr/bin && cd .. && rm -r cmake-3.25.2-linux-x86_64
 
 # Mold
-RUN cd / && git clone https://github.com/rui314/mold.git && cd mold && git checkout v1.6.0 && make -j$(nproc) CXX=g++ && make install && cd / && rm -rf /mold
+RUN cd / && git clone https://github.com/rui314/mold.git && mkdir mold/build && cd mold/build && git checkout v1.10.1 && ../install-build-deps.sh && \
+    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=c++ .. && cmake --build . -j $(nproc) && cmake --install . && cd / && rm -rf mold
 
 # ccache
 RUN wget --directory-prefix=/tmp https://github.com/ccache/ccache/releases/download/v4.7.2/ccache-4.7.2.tar.gz
