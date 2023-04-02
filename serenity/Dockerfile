@@ -1,42 +1,55 @@
-FROM nvcr.io/nvidia/cudagl:11.4.1-base-ubuntu20.04
-ENV NVIDIA_VISIBLE_DEVICES all
-ENV NVIDIA_DRIVER_CAPABILITIES compute,video,utility,graphics,compat32,display
-
-RUN apt-get update
+FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get install -y \
+FROM ubuntu:22.10
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update -y \
+    && apt-get install -y \
         build-essential \
-        cmake \
-	    curl \
-	    libmpfr-dev \
-        libmpc-dev \
-        libgmp-dev \
-        e2fsprogs \
-        ninja-build \
-        qemu-system-gui \
-        qemu-system-x86 \
-        qemu-utils \
         ccache \
+        cmake \
+        curl \
+        g++-12 \
+        gcc-12 \
+        libstdc++-12-dev \
+        e2fsprogs \
+        genext2fs \
+        git \
+        imagemagick \
+        libgmp-dev \
+        libgtk-3-dev \
+        libmpc-dev \
+        libmpfr-dev \
+        libpixman-1-dev \
+        libsdl2-dev \
+        libspice-server-dev \
+        ninja-build \
+        qemu-utils \
         rsync \
-        unzip \
+        sudo \
         texinfo \
-        vim \
-        zsh \
-        git
+        tzdata \
+        unzip
+
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 900 --slave /usr/bin/g++ g++ /usr/bin/g++-12
 
 
-RUN apt install -y software-properties-common && add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
-    apt install -y gcc-11 g++-11 gcc-11-multilib
+RUN apt-get install -y wget
+RUN apt-get install -y bsdmainutils
+RUN apt-get install -y python3-dev
+RUN apt-get install -y tmux
+RUN apt-get install -y  git-all
+RUN apt-get -y install gdb
+RUN apt install -y clang-format
+RUN apt-get install -y software-properties-common
+RUN apt-get install -y lsb-release
+RUN apt-get -y update && apt-get install -y libssl-dev
+RUN apt-get install -y bash-completion
+RUN apt-get install -y bat
+RUN apt-get install -y exa
+RUN apt-get install -y genext2fs
 
-# QEMU build requirements
-RUN apt install -y libgtk-3-dev libpixman-1-dev libsdl2-dev libspice-server-dev
-
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 20
-RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 20
-
-RUN curl  -LO https://ftp.gnu.org/gnu/binutils/binutils-2.38.tar.gz && tar -xzf binutils-2.38.tar.gz && \
-    cd binutils-2.38 && ./configure && make -j 8 && make install 
-
-RUN cd / && rm -r binutils*
+RUN rm -rf /var/lib/apt/lists/

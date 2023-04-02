@@ -10,7 +10,7 @@ touch $HOME/.vimrc
 touch $HOME/.bashrc
 touch $HOME/
 
-docker create -it --runtime=nvidia \
+docker create -it --gpus=all \
          --name $containerName \
          --net host \
          --privileged \
