@@ -40,8 +40,7 @@ RUN apt-get install -y neovim
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.23.4/cmake-3.23.4-linux-x86_64.sh && \
     bash ./cmake-3.23.4-linux-x86_64.sh --skip-license --include-subdir --prefix=/ && rm ./cmake-3.23.4-linux-x86_64.sh && \
     cd cmake-3.23.4-linux-x86_64 && cp -r share/* /usr/share && cp -r bin/* /usr/bin && cd .. && rm -r cmake-3.23.4-linux-x86_64
-
-
+ 
 # Mold
 RUN cd / && git clone https://github.com/rui314/mold.git && cd mold && git checkout v1.6.0 && make -j$(nproc) CXX=g++ && make install && cd / && rm -rf /mold
 
@@ -54,8 +53,8 @@ RUN cd /tmp/ccache-4.7.2/build && cmake -DZSTD_FROM_INTERNET=ON -DCMAKE_INSTALL_
 RUN apt-get update  && apt-get install -y gcc-12 g++-12 libstdc++-12-dev
 
 # LLVM/Clang
-RUN bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+RUN wget https://apt.llvm.org/llvm.sh && bash ./llvm.sh 16 all && rm ./llvm.sh
 # Set Clang as the default compiler, cmake can take it from here
-RUN update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-15 30
-RUN update-alternatives --install /usr/bin/cc cc /usr/bin/clang-15 30
-RUN ln -s /usr/bin/clangd-15 /usr/bin/clangd
+RUN update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-16 30
+RUN update-alternatives --install /usr/bin/cc cc /usr/bin/clang-16 30
+RUN ln -s /usr/bin/clangd-16 /usr/bin/clangd
