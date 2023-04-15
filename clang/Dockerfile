@@ -37,9 +37,9 @@ RUN apt-get update
 RUN apt-get install -y neovim
 
 # CMake
-RUN wget https://github.com/Kitware/CMake/releases/download/v3.23.4/cmake-3.23.4-linux-x86_64.sh && \
-    bash ./cmake-3.23.4-linux-x86_64.sh --skip-license --include-subdir --prefix=/ && rm ./cmake-3.23.4-linux-x86_64.sh && \
-    cd cmake-3.23.4-linux-x86_64 && cp -r share/* /usr/share && cp -r bin/* /usr/bin && cd .. && rm -r cmake-3.23.4-linux-x86_64
+RUN wget https://github.com/Kitware/CMake/releases/download/v3.26.3/cmake-3.26.3-linux-x86_64.sh && \
+    bash ./cmake-3.26.3-linux-x86_64.sh --skip-license --include-subdir --prefix=/ && rm ./cmake-3.26.3-linux-x86_64.sh && \
+    cd cmake-3.26.3-linux-x86_64 && cp -r share/* /usr/share && cp -r bin/* /usr/bin && cd .. && rm -r cmake-3.26.3-linux-x86_64
  
 # Mold
 RUN cd / && git clone https://github.com/rui314/mold.git && cd mold && git checkout v1.6.0 && make -j$(nproc) CXX=g++ && make install && cd / && rm -rf /mold
