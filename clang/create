@@ -17,6 +17,7 @@ docker create -it --gpus=all \
          --privileged \
          --shm-size 4G \
          --user $USER \
+         --ulimit nofile=32768:32768 \
          -v $HOME/:$HOME \
          -v $HOME/.vimrc:$HOME/.vimrc \
          -v $HOME/.bashrc:$HOME/.bashrc \

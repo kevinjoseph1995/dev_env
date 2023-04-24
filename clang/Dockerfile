@@ -30,6 +30,7 @@ RUN apt-get install -y lsb-release
 RUN apt-get -y update && apt-get install -y libssl-dev
 RUN apt-get install -y bash-completion
 RUN apt-get install -y bat
+RUN apt-get install -y valgrind
 
 # Neovim
 RUN add-apt-repository ppa:neovim-ppa/stable
