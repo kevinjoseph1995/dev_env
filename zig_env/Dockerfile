@@ -19,5 +19,10 @@ RUN cd / && \
 	cmake --install . && \
 	cd / && rm -rf /mold
 
-# Ziggy zig
-RUN pacman --noconfirm -S zig
+
+# Zig nightly master
+RUN pacman -S --needed --noconfirm wget
+RUN wget https://ziglang.org/builds/zig-linux-x86_64-0.11.0-dev.2892+fd6200eda.tar.xz
+RUN mkdir zig_temp &&  tar -xf zig-linux-x86_64-0.11.0-dev.2892+fd6200eda.tar.xz -C zig_temp
+RUN mv zig_temp/*/* zig_temp && mv zig_temp/zig /usr/local/bin && mkdir /usr/local/lib/zig && mv zig_temp/lib/*  /usr/local/lib/zig
+RUN rm -f /zig-linux-x86_64-0.11.0-dev.2892+fd6200eda.tar.xz && rm -rf /zig_temp
