@@ -42,8 +42,17 @@ RUN wget https://github.com/Kitware/CMake/releases/download/v3.26.3/cmake-3.26.3
     bash ./cmake-3.26.3-linux-x86_64.sh --skip-license --include-subdir --prefix=/ && rm ./cmake-3.26.3-linux-x86_64.sh && \
     cd cmake-3.26.3-linux-x86_64 && cp -r share/* /usr/share && cp -r bin/* /usr/bin && cd .. && rm -r cmake-3.26.3-linux-x86_64
 
-# Mold
-RUN cd / && git clone https://github.com/rui314/mold.git && cd mold && git checkout v1.6.0 && make -j$(nproc) CXX=g++ && make install && cd / && rm -rf /mold
+# Mold linker
+RUN cd / && \
+    git clone https://github.com/rui314/mold.git && \
+	cd mold && \
+	git checkout v1.11.0 && \
+    ./install-build-deps.sh && \
+	mkdir build && cd build && \
+	cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=c++ .. && \
+	cmake --build . -j $(nproc) && \
+	cmake --install . && \
+	cd / && rm -rf /mold
 
 # ccache
 RUN wget --directory-prefix=/tmp https://github.com/ccache/ccache/releases/download/v4.7.2/ccache-4.7.2.tar.gz
