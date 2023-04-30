@@ -41,7 +41,7 @@ RUN apt-get install -y neovim
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.26.3/cmake-3.26.3-linux-x86_64.sh && \
     bash ./cmake-3.26.3-linux-x86_64.sh --skip-license --include-subdir --prefix=/ && rm ./cmake-3.26.3-linux-x86_64.sh && \
     cd cmake-3.26.3-linux-x86_64 && cp -r share/* /usr/share && cp -r bin/* /usr/bin && cd .. && rm -r cmake-3.26.3-linux-x86_64
- 
+
 # Mold
 RUN cd / && git clone https://github.com/rui314/mold.git && cd mold && git checkout v1.6.0 && make -j$(nproc) CXX=g++ && make install && cd / && rm -rf /mold
 
@@ -59,3 +59,6 @@ RUN wget https://apt.llvm.org/llvm.sh && bash ./llvm.sh 16 all && rm ./llvm.sh
 RUN update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-16 30
 RUN update-alternatives --install /usr/bin/cc cc /usr/bin/clang-16 30
 RUN ln -s /usr/bin/clangd-16 /usr/bin/clangd
+
+# Stack trace libraries
+RUN apt-get install -y  libdw-dev libdwarf-dev binutils-dev
