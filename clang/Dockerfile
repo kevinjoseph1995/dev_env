@@ -63,7 +63,6 @@ RUN ln -s /usr/bin/clangd-16 /usr/bin/clangd
 RUN apt-get install -y  libdw-dev libdwarf-dev binutils-dev
 
 # Utils
-RUN apt-get install -y tmux
 RUN apt install -y clang-format
 RUN apt-get install -y bat
 RUN apt-get install -y valgrind
