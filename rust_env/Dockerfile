@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:23.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -11,12 +11,13 @@ RUN  chmod a+rwx /etc/bash.bashrc
 
 RUN apt-get -y update
 
+# rust toolchain
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 RUN apt-get install -y wget
 RUN apt-get install -y bsdmainutils
 RUN apt-get install -y python3-dev
 RUN apt-get install -y curl
-RUN apt-get install -y tmux
 RUN apt-get install unzip
 RUN apt-get install -y  git-all
 RUN apt-get -y install gdb
@@ -26,14 +27,6 @@ RUN apt install -y clang-format
 RUN apt-get install -y software-properties-common
 RUN apt-get install -y lsb-release
 RUN apt-get -y update && apt-get install -y libssl-dev
-RUN apt-get install -y bash-completion
 RUN apt-get -y install binutils-dev
+RUN apt-get install -y bash-completion
 RUN apt-get -y install exa 
-
-# Neovim
-RUN add-apt-repository ppa:neovim-ppa/stable
-RUN apt-get update
-RUN apt-get install -y neovim
-
-# rust toolchain
-RUN curl --proto '=https' --tlsv1.3 -sSf https://sh.rustup.rs | sh -s -- -y
